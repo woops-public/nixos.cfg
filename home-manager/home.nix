@@ -30,6 +30,7 @@
     brave
     discord
     steam
+    cloudflare-warp
   ];
 
   programs.git = {
@@ -61,6 +62,7 @@
     shellAliases = {
       g = "git";
       v = "nvim";
+      fr = "sudo nixos-rebuild switch --flake .#nixos";
     };
   };
 
