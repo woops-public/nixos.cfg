@@ -109,6 +109,7 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  hardware.graphics.enable32Bit = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

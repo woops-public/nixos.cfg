@@ -22,6 +22,8 @@
     brave
     discord
     steam
+    steamcmd
+    steam-run
   ];
 
   programs.helix = {
