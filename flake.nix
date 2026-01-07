@@ -6,11 +6,6 @@
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      #inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -28,9 +23,6 @@
               home-manager.useUserPackages = true;
               #home-manager.extraSpecialArgs = {inherit inputs;};
               home-manager.users.w0op5 = ./home-manager/home.nix;
-	      home-manager.sharedModules = [
-	        nixvim.homeModules.nixvim
-	      ];
             }
           ];
         };

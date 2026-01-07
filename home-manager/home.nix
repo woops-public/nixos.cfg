@@ -4,16 +4,9 @@
   home.username = "w0op5";
   home.homeDirectory = "/home/w0op5";
 
-  # set cursor size and dpi for 4k monitor
-  xresources.properties = {
-    "Xcursor.size" = 16;
-    "Xft.dpi" = 172;
-  };
-
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     nnn
-    foot
 
     zip
     xz
@@ -31,11 +24,24 @@
     steam
   ];
 
-  programs.nixvim = {
-    enable = true;
+  programs.helix = {
+   enable = true;
+   settings = {
+     theme = "dracula";
+     editor = {
+       line-number = "relative";
+       lsp.display-messages = true;
+     };
+   };
+ };
 
-    colorschemes.catppuccin.enable = true;
-    plugins.lualine.enable = true;
+ programs.foot = {
+   enable = true;
+   settings = {
+     main = {
+       font = "FiraCode Nerd Font:size=14";
+    };
+   };
   };
 
   programs.git = {
@@ -44,10 +50,8 @@
     settings.user.email = "woops-public@posteo.me";
   };
 
-  # starship - an customizable prompt for any shell
   programs.starship = {
     enable = true;
-    # custom settings
     settings = {
       add_newline = false;
       aws.disabled = true;
@@ -62,11 +66,8 @@
     bashrcExtra = ''
       export PATH="$PATH:$HOME/bin"
     '';
-
-    # set some aliases, feel free to add more or remove some
     shellAliases = {
       g = "git";
-      v = "nvim";
       fr = "sudo nixos-rebuild switch --flake .#nixos";
       warp-up = "warp-cli connect";
       warp-down = "warp-cli disconnect";
