@@ -15,6 +15,7 @@
     neovim
     nnn
     foot
+    kitty
 
     zip
     xz
@@ -30,8 +31,9 @@
     brave
     discord
     steam
-    cloudflare-warp
   ];
+
+  home.sessionVariables.NIXOS_OZONE_WL = "1";
 
   programs.git = {
     enable = true;
@@ -63,7 +65,37 @@
       g = "git";
       v = "nvim";
       fr = "sudo nixos-rebuild switch --flake .#nixos";
+      warp-up = "warp-cli connect";
+      warp-down = "warp-cli disconnect";
     };
+  };
+
+    wayland.windowManager.hyprland = {
+    enable = true;
+    # set the Hyprland and XDPH packages to null to use the ones from the NixOS module
+    package = null;
+    portalPackage = null;
+  };
+  wayland.windowManager.hyprland.settings = {
+    "$mod" = "SUPER";
+    bind =
+      [
+        "$mod, F, exec, brave"
+        "$mod, T, exec, foot"
+        ", Print, exec, grimblast copy area"
+      ]
+      ++ (
+        # workspaces
+        # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
+        builtins.concatLists (builtins.genList (i:
+            let ws = i + 1;
+            in [
+              "$mod, code:1${toString i}, workspace, ${toString ws}"
+              "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
+            ]
+          )
+          9)
+      );
   };
 
   # This value determines the home Manager release that your
